@@ -15,6 +15,59 @@ import pickle
 import json
 import os
 
+# ── Auto-setup for Streamlit Cloud deployment ──────────────────────
+import subprocess
+import os
+
+os.makedirs("outputs", exist_ok=True)
+
+if not os.path.exists("ge_aerosim_workforce.csv"):
+    st.info("Generating dataset... please wait 2-3 minutes.")
+    result = subprocess.run(
+        ["python3", "generate_dataset.py"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        st.error(f"Dataset generation failed:\n{result.stderr}")
+        st.stop()
+
+if not os.path.exists("outputs/athena_classifier.pkl"):
+    st.info("Training classifier...")
+    result = subprocess.run(
+        ["python3", "train_classifier.py"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        st.error(f"Classifier training failed:\n{result.stderr}")
+        st.stop()
+
+if not os.path.exists("outputs/scenario_results.json"):
+    st.info("Running Monte Carlo simulations...")
+    result = subprocess.run(
+        ["python3", "monte_carlo.py"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        st.error(f"Monte Carlo failed:\n{result.stderr}")
+        st.stop()
+
+if not os.path.exists("outputs/chro_brief.txt"):
+    st.info("Generating CHRO brief...")
+    env = {**os.environ,
+           "ANTHROPIC_API_KEY": st.secrets["ANTHROPIC_API_KEY"]}
+    result = subprocess.run(
+        ["python3", "generate_brief.py"],
+        capture_output=True,
+        text=True,
+        env=env
+    )
+    if result.returncode != 0:
+        st.error(f"Brief generation failed:\n{result.stderr}")
+        st.stop()
+
 # ─────────────────────────────────────────────────────────────────────
 # PASSWORD GATE
 # ─────────────────────────────────────────────────────────────────────

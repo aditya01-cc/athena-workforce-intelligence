@@ -1,5 +1,5 @@
 Athena: AI Workforce Intelligence System
-Conscious Cybernetics™ · Aditya Roy
+Aditya Roy
 
 "Which roles will AI change? Which people are already ready for what comes next?"
 

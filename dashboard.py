@@ -15,16 +15,20 @@ import pickle
 import json
 import os
 
-# ── Auto-setup for Streamlit Cloud deployment ──────────────────────
+# ── Auto-setup for Streamlit Cloud ────────────────────────────────
 import subprocess
+import sys
 import os
 
 os.makedirs("outputs", exist_ok=True)
 
+# Use the same Python that is running this script
+PYTHON = sys.executable
+
 if not os.path.exists("ge_aerosim_workforce.csv"):
     st.info("Generating dataset... please wait 2-3 minutes.")
     result = subprocess.run(
-        ["python3", "generate_dataset.py"],
+        [PYTHON, "generate_dataset.py"],
         capture_output=True,
         text=True
     )
@@ -35,7 +39,7 @@ if not os.path.exists("ge_aerosim_workforce.csv"):
 if not os.path.exists("outputs/athena_classifier.pkl"):
     st.info("Training classifier...")
     result = subprocess.run(
-        ["python3", "train_classifier.py"],
+        [PYTHON, "train_classifier.py"],
         capture_output=True,
         text=True
     )
@@ -46,7 +50,7 @@ if not os.path.exists("outputs/athena_classifier.pkl"):
 if not os.path.exists("outputs/scenario_results.json"):
     st.info("Running Monte Carlo simulations...")
     result = subprocess.run(
-        ["python3", "monte_carlo.py"],
+        [PYTHON, "monte_carlo.py"],
         capture_output=True,
         text=True
     )
@@ -59,7 +63,7 @@ if not os.path.exists("outputs/chro_brief.txt"):
     env = {**os.environ,
            "ANTHROPIC_API_KEY": st.secrets["ANTHROPIC_API_KEY"]}
     result = subprocess.run(
-        ["python3", "generate_brief.py"],
+        [PYTHON, "generate_brief.py"],
         capture_output=True,
         text=True,
         env=env

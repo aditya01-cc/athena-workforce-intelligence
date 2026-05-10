@@ -511,7 +511,7 @@ def calculate_fd_readiness_gap(ai_readiness, learning_velocity,
 # ─────────────────────────────────────────────────────────────────────
 
 def generate_dataset(n=50000):
-    print(f"Generating GE Aero-Sim Digital Twin ({n:,} employees)...")
+    print(f"Calibrated on publicly available GE Aerospace workforce data. ({n:,} employees)...")
     print("Calibrated on publicly available GE Aerospace workforce data.\n")
 
     records = []

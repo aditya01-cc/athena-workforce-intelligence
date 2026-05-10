@@ -1,5 +1,5 @@
 ATHENA WORKFORCE INTELLIGENCE SYSTEM
-GE Aero-Sim Digital Twin · 50,000 Employees · 7 Global Sites
+athena-workforce-intelligence Demo · 50,000 Employees · 7 Global Sites
 CHRO Strategic Brief — Board Ready
 
 Conscious Cybernetics™ · Aditya Roy

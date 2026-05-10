@@ -131,6 +131,33 @@ def check_password():
 if not check_password():
     st.stop()
 
+# ── Auto-setup for Streamlit Cloud deployment ──────────────────────
+import subprocess
+import os
+
+os.makedirs("outputs", exist_ok=True)
+
+if not os.path.exists("ge_aerosim_workforce.csv"):
+    st.info("Setting up Athena for first run... this takes 3-4 minutes.")
+    subprocess.run(["python3", "generate_dataset.py"], check=True)
+
+if not os.path.exists("outputs/athena_classifier.pkl"):
+    st.info("Training classifier...")
+    subprocess.run(["python3", "train_classifier.py"], check=True)
+
+if not os.path.exists("outputs/scenario_results.json"):
+    st.info("Running Monte Carlo simulations...")
+    subprocess.run(["python3", "monte_carlo.py"], check=True)
+
+if not os.path.exists("outputs/chro_brief.txt"):
+    st.info("Generating CHRO brief...")
+    subprocess.run(
+        ["python3", "generate_brief.py"],
+        check=True,
+        env={**os.environ, "ANTHROPIC_API_KEY": st.secrets["ANTHROPIC_API_KEY"]}
+    )
+
+
 st.set_page_config(
     page_title="Athena | AI Workforce Intelligence",
     page_icon="",

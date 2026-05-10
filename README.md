@@ -65,7 +65,3 @@ consciousCybernetics.org
 
 Legal & Ethics
 All employee data is entirely synthetic. No real individuals are represented. GE Aerospace™ is a trademark of General Electric Company — this project uses an independent synthetic dataset calibrated to publicly available aerospace industry disclosures. No proprietary data was accessed. Athena produces analytical arguments, not employment decisions. All outputs require human review before any action is taken. All model inference runs locally on NVIDIA DGX hardware — no employee data is transmitted externally.
-
-Built in one day. Shipped with conviction.
-Not a description of what I would build. A demonstration of how I work.
-Conscious Cybernetics™ · Aditya Roy · May 2026
